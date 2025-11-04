@@ -81,11 +81,15 @@ def get_treaties():
             query = query.eq('category', category_filter)
             
         if search_term:
-            search_pattern = f'%{search_term}%'
-            query = query.or_(
-                f'title.ilike.{search_pattern}',
-                f'signatory_countries.ilike.{search_pattern}'
-            )
+            # 1. Search the title column using ILIKE (Standard text search)
+            title_search = f'title.ilike.%{search_term}%'
+            
+            # 2. Search the signatory_countries array using 'cs' (array contains string)
+            # The 'cs' operator is the correct way to query for a string inside a TEXT[] array.
+            country_search = f'signatory_countries.cs.{{{search_term}}}'
+
+            # 3. Combine both searches using the OR operator
+            query = query.or_(title_search, country_search)
             
         response = query.execute()
         
