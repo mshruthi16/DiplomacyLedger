@@ -1,6 +1,6 @@
 // frontend/app.js - Comprehensive Logic for DiplomacyLedger
 
-const BACKEND_URL = 'http://127.0.0.1:5000'; 
+const BACKEND_URL = 'https://diplomacy-ledger-api.onrender.com'; 
 let currentTreatyData = {}; // Stores the original data for quick reference/comparison
 let currentTreatyId = null;
 
