@@ -106,7 +106,7 @@ body {
 
 .card-header, .card-header-custom {
 
-    background-color: var(--color-secondary) !important; 
+    background-color: var(--color-primary) !important; 
 
     color: white;
 
