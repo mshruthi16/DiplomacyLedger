@@ -1,45 +1,106 @@
-/* frontend/custom.css */
+/* frontend/custom.css - FINAL ELEGANT HYBRID DESIGN */
+
 :root {
-    /* Retain Authority Colors */
-    --color-primary: #001f3f; /* Deep Navy Blue for Header/Accents */
-    --color-secondary: #008080; /* Professional Teal for Highlights */
+    /* 1. Core Color Palette (High Authority) */
+    --color-primary: #001F3F;      /* Deep Navy Blue */
+    --color-secondary: #008080;    /* Professional Teal */
+    --color-text: #2c3e50;         /* Dark Text */
     
-    /* Change Background to White/Light */
-    --color-background: #ffffff; /* Clean White */
-    --color-light-gray: #f8f9fa; /* Very Light Gray for separation */
-    --color-text: #2c3e50;
-    /* ... (rest of success/warning/danger colors remain the same) */
+    /* 2. Backgrounds & Elevation */
+    --color-background: #ffffff;   /* Clean White Body */
+    --color-light-gray: #f8f9fa;   /* Very Light Gray for card separation */
+    --gradient-primary: linear-gradient(90deg, #001f3f 0%, #004d80 100%); /* Subtle Navy Gradient */
+    --shadow-depth: 0 6px 15px rgba(0, 0, 0, 0.15); /* Stronger Card Shadow */
+
+    /* 3. Status Colors */
+    --color-success: #2ecc71;      /* Enforced */
+    --color-warning: #ffc107;      /* Signed/Expiring */
+    --color-danger: #e74c3c;       /* Archived/Alert */
 }
 
 body {
-    background-color: var(--color-background); /* White body background */
+    background-color: var(--color-background);
     color: var(--color-text);
-    font-family: 'Roboto', sans-serif;
+    /* Ensure you have linked Roboto/Poppins in dashboard.html head */
+    font-family: 'Roboto', sans-serif; 
+    font-size: 0.95rem; 
 }
 
-/* 1. Header is the Navy Accent */
+/* --- HEADER AND NAVIGATION --- */
 .header-bar {
-    background-color: var(--color-primary); /* Deep Navy Blue */
+    background: var(--gradient-primary); /* Use Gradient for depth */
     color: white;
-    padding: 18px 0; /* Slightly larger header */
-    margin-bottom: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    padding: 18px 0;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Dark, deep shadow */
 }
 
-/* 2. Cards Pop on the White Background */
+/* --- CARD AND REPORT STYLING --- */
 .card {
-    border: 1px solid #e0e0e0; /* Add a light border for definition */
-    border-radius: 8px;
-    background-color: var(--color-light-gray); /* Light gray card background to distinguish from white body */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft, professional shadow */
+    border: 1px solid #e0e0e0; 
+    border-radius: 12px; /* Slightly more rounded corners for modern look */
+    background-color: var(--color-light-gray);
+    box-shadow: var(--shadow-depth); /* Apply strong shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* 3. Status/Filter Header remains Teal/Navy */
-.card-header-custom {
-    background-color: var(--color-secondary) !important;
+.card:hover {
+    transform: translateY(-3px); /* Subtle hover lift for elegance */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-header, .card-header-custom {
+    background-color: var(--color-secondary) !important; /* Teal for high visibility */
     color: white;
     font-weight: 500;
-    border-radius: 8px 8px 0 0 !important;
+    font-size: 1.1rem;
+    padding: 15px;
+    border-radius: 12px 12px 0 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Table styling needs no change */
+/* --- BUTTONS AND INPUTS --- */
+.btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #004d80; /* Slightly lighter navy on hover */
+    border-color: #004d80;
+}
+
+/* --- DATA TABLE AND LISTS --- */
+.table {
+    margin-top: 20px;
+}
+
+.list-group-item {
+    background-color: transparent !important;
+    border-color: #e0e0e0;
+}
+
+/* --- STATUS PILLS (Clarity at a Glance) --- */
+.status-pill {
+    padding: 4px 10px;
+    border-radius: 20px; /* Full pill shape */
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.status-Enforced { background-color: var(--color-success); color: white; }
+.status-Signed { background-color: var(--color-warning); color: #333; }
+.status-Draft { background-color: #bdc3c7; color: #333; }
+.status-Archived { background-color: var(--color-danger); color: white; }
+
+/* --- AUDIT LOG SPECIAL STYLING (detail.html) --- */
+.audit-log-card .card-header {
+    background-color: #34495e !important; /* Darker charcoal for finality/security */
+}
+.audit-log-card .list-group-item {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    border-left: 3px solid var(--color-secondary); /* Teal accent border */
+    margin-bottom: 5px;
+}
