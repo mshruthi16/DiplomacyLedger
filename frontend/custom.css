@@ -105,37 +105,27 @@ body {
     margin-bottom: 5px;
 }
 
-/* Custom CSS for the Subtle World Map Overlay (index.html background) */
+/* frontend/custom.css - CORRECTED Map Overlay */
 
-/* 1. Define the abstract map background style */
 .world-map-overlay {
-    /* Reference the image relative to the custom.css file location */
-    background-image: url('assets/world-map.svg'); 
+    height: 100vh;
+    overflow: hidden;
+    position: relative; /* Needed to make it the stacking context */
+    
+    /* CRITICAL FIX: Stacks the gradient filter over the image */
+    background: 
+        /* 1. Gradient (The Opaque Filter) */
+        linear-gradient(rgba(0, 31, 63, 0.95), rgba(0, 0, 0, 0.85)), 
+        
+        /* 2. Image (The Base Layer) */
+        url('assets/world-map.svg'); 
 
     background-size: cover; 
     background-position: center center;
     background-repeat: no-repeat;
-
-    height: 100vh; 
-    overflow: hidden;
-}
-
-/* 2. Apply a heavy gradient filter for elegance and contrast */
-/* This is critical for making the login card legible */
-.world-map-overlay::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     
-    /* Use a heavy, semi-transparent Navy/Black overlay */
-    background: 
-        linear-gradient(rgba(0, 31, 63, 0.95), rgba(0, 0, 0, 0.85)); /* Navy fading to near-black */
-    
-    /* Optional: Add a subtle 'noise' filter for a modern effect */
+    /* The filter lines below should be deleted or commented out 
+       unless you want an extremely subtle effect. 
+    */
     /* filter: brightness(1.2) contrast(1.1); */ 
-    
-    z-index: -1; /* Place the overlay behind the login content */
 }
