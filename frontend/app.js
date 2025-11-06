@@ -184,6 +184,61 @@ function toggleEditMode(isEditing) {
     }
 }
 
+// frontend/app.js - Add this new function (place it near saveTreatyChanges)
+
+async function createNewTreaty() {
+    const form = document.getElementById('create-treaty-form');
+    const message = document.getElementById('creation-message');
+
+    // Basic form validation
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const newTreatyData = {
+        title: document.getElementById('title').value,
+        current_status: document.getElementById('current_status').value,
+        description: document.getElementById('description').value,
+        type: document.getElementById('type').value,
+        category: document.getElementById('category').value,
+        date_signed: document.getElementById('date_signed').value,
+        effective_date: document.getElementById('effective_date').value,
+        expiry_date: document.getElementById('expiry_date').value || null, // Allow NULL for perpetual
+        // Convert comma-separated string back to array
+        signatory_countries: document.getElementById('signatory_countries').value
+                                .split(',').map(s => s.trim()).filter(s => s.length > 0)
+    };
+
+    message.textContent = 'Submitting...';
+    message.className = 'mt-3 text-info';
+
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/treaties`, {
+            method: 'POST', // Calls the existing creation API
+            headers: getAuthHeaders(),
+            body: JSON.stringify(newTreatyData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && response.status === 201) {
+            message.textContent = `Success! Treaty "${result.title}" created and logged. Redirecting...`;
+            message.className = 'mt-3 text-success';
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        } else {
+            message.textContent = `Error: ${result.error || 'Creation failed. Check server logs.'}`;
+            message.className = 'mt-3 text-danger';
+        }
+
+    } catch (error) {
+        message.textContent = "Network Error: Could not connect to the API.";
+        message.className = 'mt-3 text-danger';
+    }
+}
+
 // Saves Changes (PUT Request - Step 9)
 async function saveTreatyChanges() {
     const treatyId = currentTreatyData.id;
