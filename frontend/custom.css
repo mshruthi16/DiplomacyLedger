@@ -107,25 +107,22 @@ body {
 
 /* frontend/custom.css - CORRECTED Map Overlay */
 
+/* frontend/custom.css - CORRECTED MAP OVERLAY FOR BLUE IMAGE */
+
 .world-map-overlay {
     height: 100vh;
     overflow: hidden;
-    position: relative; /* Needed to make it the stacking context */
+    position: relative;
     
-    /* CRITICAL FIX: Stacks the gradient filter over the image */
+    /* CRITICAL FIX: Reduce opacity of the filter to allow the map to show through */
     background: 
-        /* 1. Gradient (The Opaque Filter) */
-        linear-gradient(rgba(0, 31, 63, 0.95), rgba(0, 0, 0, 0.85)), 
+        /* 1. Gradient Filter (Semi-Transparent Black/Navy - ADJUST ALPHA HERE) */
+        linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.35)), 
         
-        /* 2. Image (The Base Layer) */
+        /* 2. The Image Layer */
         url('assets/world-map.svg'); 
 
     background-size: cover; 
     background-position: center center;
     background-repeat: no-repeat;
-    
-    /* The filter lines below should be deleted or commented out 
-       unless you want an extremely subtle effect. 
-    */
-    /* filter: brightness(1.2) contrast(1.1); */ 
 }
