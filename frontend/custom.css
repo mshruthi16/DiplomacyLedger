@@ -1,4 +1,4 @@
-/* frontend/custom.css - FINAL ELEGANT HYBRID DESIGN */
+/* frontend/custom.css - FINAL CONSOLIDATED & ELEGANT DESIGN */
 
 :root {
     /* 1. Core Color Palette (High Authority) */
@@ -11,6 +11,7 @@
     --color-light-gray: #f8f9fa;   /* Very Light Gray for card separation */
     --gradient-primary: linear-gradient(90deg, #001f3f 0%, #004d80 100%); /* Subtle Navy Gradient */
     --shadow-depth: 0 6px 15px rgba(0, 0, 0, 0.15); /* Stronger Card Shadow */
+    --shadow-deep: 0 8px 20px rgba(0, 0, 0, 0.25); /* Deep shadow for Header/Login BG */
 
     /* 3. Status Colors */
     --color-success: #2ecc71;      /* Enforced */
@@ -18,39 +19,39 @@
     --color-danger: #e74c3c;       /* Archived/Alert */
 }
 
+/* --- BASE STYLING --- */
 body {
     background-color: var(--color-background);
     color: var(--color-text);
-    /* Ensure you have linked Roboto/Poppins in dashboard.html head */
     font-family: 'Roboto', sans-serif; 
     font-size: 0.95rem; 
 }
 
-/* --- HEADER AND NAVIGATION --- */
+/* --- HEADER AND NAVIGATION (Dashboard/Detail) --- */
 .header-bar {
-    background: var(--gradient-primary); /* Use Gradient for depth */
+    background: var(--gradient-primary); 
     color: white;
     padding: 18px 0;
     margin-bottom: 35px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Dark, deep shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* --- CARD AND REPORT STYLING --- */
 .card {
     border: 1px solid #e0e0e0; 
-    border-radius: 12px; /* Slightly more rounded corners for modern look */
+    border-radius: 12px; 
     background-color: var(--color-light-gray);
-    box-shadow: var(--shadow-depth); /* Apply strong shadow */
+    box-shadow: var(--shadow-depth); 
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card:hover {
-    transform: translateY(-3px); /* Subtle hover lift for elegance */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px); 
+    box-shadow: var(--shadow-deep); 
 }
 
 .card-header, .card-header-custom {
-    background-color: var(--color-secondary) !important; /* Teal for high visibility */
+    background-color: var(--color-secondary) !important; 
     color: white;
     font-weight: 500;
     font-size: 1.1rem;
@@ -67,7 +68,7 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #004d80; /* Slightly lighter navy on hover */
+    background-color: #004d80; 
     border-color: #004d80;
 }
 
@@ -81,10 +82,10 @@ body {
     border-color: #e0e0e0;
 }
 
-/* --- STATUS PILLS (Clarity at a Glance) --- */
+/* --- STATUS PILLS --- */
 .status-pill {
     padding: 4px 10px;
-    border-radius: 20px; /* Full pill shape */
+    border-radius: 20px; 
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -93,6 +94,44 @@ body {
 .status-Signed { background-color: var(--color-warning); color: #333; }
 .status-Draft { background-color: #bdc3c7; color: #333; }
 .status-Archived { background-color: var(--color-danger); color: white; }
+
+
+/* --- LOGIN PAGE & BACKGROUND STYLING (index.html) --- */
+
+.login-card {
+    box-shadow: var(--shadow-deep);
+    border-radius: 12px;
+}
+
+/* Ensures the card text pops against the dark map background */
+.login-card-bg {
+    background-color: rgba(255, 255, 255, 0.98) !important; /* 98% opaque white */
+}
+
+/* FINAL GLOWING MAP BACKGROUND */
+.world-map-overlay {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    
+    /* 1. Stacked Background: Gradient (Base) + Image (Foreground) */
+    background: 
+        /* Gradient Filter (Semi-Transparent Black/Navy - ADJUSTED FOR VISIBILITY) */
+        linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.35)), 
+        
+        /* The Image Layer (Assumes image is dark/blue) */
+        url('assets/world-map.svg'); 
+
+    background-size: cover; 
+    background-position: center center;
+    background-repeat: no-repeat;
+    
+    /* 2. CRITICAL GLOW EFFECT: Applies filters to the entire background element */
+    filter: 
+        invert(100%)    /* Inverts the colors (Dark -> Light) */
+        grayscale(50%)  /* Adds a slight professional gray tone */
+        drop-shadow(0 0 10px var(--color-secondary)); /* Creates a subtle Teal glow */
+}
 
 /* --- AUDIT LOG SPECIAL STYLING (detail.html) --- */
 .audit-log-card .card-header {
@@ -103,26 +142,4 @@ body {
     line-height: 1.4;
     border-left: 3px solid var(--color-secondary); /* Teal accent border */
     margin-bottom: 5px;
-}
-
-/* frontend/custom.css - CORRECTED Map Overlay */
-
-/* frontend/custom.css - CORRECTED MAP OVERLAY FOR BLUE IMAGE */
-
-.world-map-overlay {
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-    
-    /* CRITICAL FIX: Reduce opacity of the filter to allow the map to show through */
-    background: 
-        /* 1. Gradient Filter (Semi-Transparent Black/Navy - ADJUST ALPHA HERE) */
-        linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.35)), 
-        
-        /* 2. The Image Layer */
-        url('assets/world-map.svg'); 
-
-    background-size: cover; 
-    background-position: center center;
-    background-repeat: no-repeat;
 }
